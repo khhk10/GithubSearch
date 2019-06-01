@@ -69,7 +69,7 @@ class SearchItemTableViewController: UITableViewController, UISearchBarDelegate{
         }
         
         // エンコードした値をkey=valueの形式で返却する
-        return "\(key)=\(value)"
+        return "\(key)=\(escapedValue)"
     }
     
     // リクエストURLの生成

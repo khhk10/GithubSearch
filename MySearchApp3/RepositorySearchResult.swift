@@ -15,10 +15,10 @@ class RepositorySearchResult: Codable {
 // アイテム一件分
 class RepoItem: Codable {
     var fullName = ""
-    var description = ""
+    var description: String?
     var htmlUrl: String?
     var stargazersCount: Int = 0
-    var language = ""
+    var language: String?
     
     var owner: Owner = Owner()
     
