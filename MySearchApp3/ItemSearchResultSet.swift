@@ -1,11 +1,3 @@
-//
-//  ItemSearchResultSet.swift
-//  MySearchApp3
-//
-//  Created by 池田昂平 on 2019/05/26.
-//  Copyright © 2019年 池田昂平. All rights reserved.
-//
-
 class ItemSearchResultSet: Codable {
     var resultSet: ResultSet
     

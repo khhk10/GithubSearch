@@ -1,22 +1,28 @@
-//
-//  SearchItemTableViewController.swift
-//  MySearchApp3
-//
-//  Created by 池田昂平 on 2019/05/26.
-//  Copyright © 2019年 池田昂平. All rights reserved.
-//
-
 import UIKit
 
 class SearchItemTableViewController: UITableViewController, UISearchBarDelegate{
     
+    // レポジトリの検索結果
     var itemDataArray = [RepoItem]()
+    
+    // ユーザの検索結果
+    var userDataArray = [UserItem]()
     
     var imageCache = NSCache<AnyObject, UIImage>()
     
     // let appid = "dj00aiZpPWdoQW91eGRFY1RYZCZzPWNvbnN1bWVyc2VjcmV0Jng9NmQ-"
     // let entryUrl: String = "https://shopping.yahooapis.jp/ShoppingWebService/V1/json/itemSearch"
-    let entryUrl: String = "https://api.github.com/search/repositories"
+    
+    // 検索URL
+    var entryUrl: String = "https://api.github.com/search/repositories"
+    
+    // 検索モード
+    var search = SearchMode.repository
+    
+    enum SearchMode: Int {
+        case repository
+        case user
+    }
     
     // let priceFormat = NumberFormatter()
 
@@ -26,6 +32,24 @@ class SearchItemTableViewController: UITableViewController, UISearchBarDelegate{
         // 価格のフォーマット
         // priceFormat.numberStyle = .currency
         // priceFormat.currencyCode = "JPY"
+    }
+    
+    // 選択肢ボタン
+    @IBAction func changeParameter(_ sender: UISegmentedControl) {
+        switch sender.selectedSegmentIndex {
+        // レポジトリ検索
+        case 0:
+            entryUrl = "https://api.github.com/search/repositories"
+            search = SearchMode.repository
+        // ユーザ検索
+        case 1:
+            entryUrl = "https://api.github.com/search/users"
+            search = SearchMode.user
+        // デフォルト（レポジトリ検索）
+        default:
+            entryUrl = "https://api.github.com/search/repositories"
+            search = SearchMode.repository
+        }
     }
     
     // UISearchBarDelegateの実装
@@ -45,6 +69,7 @@ class SearchItemTableViewController: UITableViewController, UISearchBarDelegate{
         
         // 保持している商品を一旦削除
         itemDataArray.removeAll()
+        userDataArray.removeAll()
         
         // パラメータ
         //let parameter = ["appid": appid, "query": inputText]
@@ -130,13 +155,26 @@ class SearchItemTableViewController: UITableViewController, UISearchBarDelegate{
                 // JSONデータをデコード
                 // let decodedData = try JSONDecoder().decode(ItemSearchResultSet.self, from: data)
                 
-                let decodedData = try JSONDecoder().decode(RepositorySearchResult.self, from: data)
+                switch self.search {
+                    
+                // レポジトリ検索
+                case SearchMode.repository:
+                    let decodedData = try JSONDecoder().decode(RepositorySearchResult.self, from: data)
+                    // 配列[RepoItem]を格納
+                    self.itemDataArray.append(contentsOf: decodedData.items)
+                    
+                // ユーザ検索
+                case SearchMode.user:
+                    let decodedData = try JSONDecoder().decode(UserSearchResult.self, from: data)
+                    // 配列[UserItem]を格納
+                    self.userDataArray.append(contentsOf: decodedData.items)
+                }
                 
                 // [itemData]を格納
                 // self.itemDataArray.append(contentsOf: decodedData.resultSet.firstObject.result.items)
                 
                 // 配列[RepoItem]を格納
-                self.itemDataArray.append(contentsOf: decodedData.items)
+                //self.itemDataArray.append(contentsOf: decodedData.items)
                 
             } catch let error {
                 print("##error: \(error)")
@@ -156,7 +194,14 @@ class SearchItemTableViewController: UITableViewController, UISearchBarDelegate{
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return itemDataArray.count
+        
+        switch search {
+        case SearchMode.repository:
+            return itemDataArray.count
+            
+        case SearchMode.user:
+            return userDataArray.count
+        }
     }
     
     // テーブルビューセル
@@ -166,50 +211,63 @@ class SearchItemTableViewController: UITableViewController, UISearchBarDelegate{
             return UITableViewCell()
         }
         
-        let itemData = itemDataArray[indexPath.row]
+        // 画像URL
+        var imageUrl: String
         
-        // 商品名, 価格
-        /*
-        cell.itemTitleLabel.text = itemData.name
-        let number = NSNumber(integerLiteral: Int(itemData.priceInfo.price!)!)
-        cell.itemPriceLabel.text = priceFormat.string(from: number)
-         
-        // 商品のURL
-        //cell.itemUrl = itemData.url
-        */
+        switch search {
+            
+        // レポジトリ検索
+        case SearchMode.repository:
+            let itemData = itemDataArray[indexPath.row]
+            
+            // レポジトリ名、説明文
+            cell.itemTitleLabel.text = itemData.fullName
+            cell.itemPriceLabel.text = itemData.description
+            cell.itemStarLabel.text = String(itemData.stargazersCount)
+            cell.itemProgLangLabel.text = itemData.language
+            cell.starImage.image = UIImage(named: "star")
+            
+            // レポジトリのURL
+            cell.itemUrl = itemData.htmlUrl
+            
+            // 画像
+            guard let itemImageUrl = itemData.owner.avatarUrl else {
+                // 画像なし
+                return cell
+            }
+            imageUrl = itemImageUrl
         
-        // レポジトリ名、説明文
-        cell.itemTitleLabel.text = itemData.fullName
-        cell.itemPriceLabel.text = itemData.description
-        cell.itemStarLabel.text = String(itemData.stargazersCount)
-        cell.itemProgLangLabel.text = itemData.language
-        
-        // レポジトリのURL
-        cell.itemUrl = itemData.htmlUrl
-        
-        
-        // 画像のURL
-        /*
-        guard let itemImageUrl = itemData.imageInfo.medium else {
-            // 画像なし商品
-            return cell
-        }
-        */
-        
-        guard let itemImageUrl = itemData.owner.avatarUrl else {
-            // 画像なし
-            return cell
+        // ユーザ検索
+        case SearchMode.user:
+            let userData = userDataArray[indexPath.row]
+            
+            // ユーザ名
+            cell.itemTitleLabel.text = userData.name
+            cell.itemPriceLabel.text = nil
+            cell.itemStarLabel.text = nil
+            cell.itemProgLangLabel.text = nil
+            cell.starImage.image = nil
+            
+            // ユーザのURL
+            cell.itemUrl = userData.htmlUrl
+            
+            // 画像
+            guard let itemImageUrl = userData.avatarUrl else {
+                // 画像なし
+                return cell
+            }
+            imageUrl = itemImageUrl
         }
         
         // キャッシュ画像あるかどうか
-        if let chacheImage = imageCache.object(forKey: itemImageUrl as AnyObject) {
+        if let chacheImage = imageCache.object(forKey: imageUrl as AnyObject) {
             // 画像を設定
             cell.itemImageView.image = chacheImage
             return cell
         }
         
         // キャッシュがない場合 -> ダウンロード
-        guard let url = URL(string: itemImageUrl) else {
+        guard let url = URL(string: imageUrl) else {
             // URLを生成できなかった
             return cell
         }
@@ -236,7 +294,7 @@ class SearchItemTableViewController: UITableViewController, UISearchBarDelegate{
             }
             
             // キャッシュに画像を登録
-            self.imageCache.setObject(image, forKey: itemImageUrl as AnyObject)
+            self.imageCache.setObject(image, forKey: imageUrl as AnyObject)
             
             // 画像はメインそスレッド上で設定する
             DispatchQueue.main.async {
@@ -252,7 +310,7 @@ class SearchItemTableViewController: UITableViewController, UISearchBarDelegate{
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let cell = sender as? ItemTableViewCell {
             if let webViewController = segue.destination as? WebViewController {
-                // 商品ページのURLを設定する
+                // WebViewで表示するURLを設定する
                 webViewController.itemUrl = cell.itemUrl
             }
         }

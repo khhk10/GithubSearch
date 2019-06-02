@@ -16,6 +16,8 @@ class ItemTableViewCell: UITableViewCell {
     @IBOutlet weak var itemStarLabel: UILabel!
     @IBOutlet weak var itemProgLangLabel: UILabel!
     
+    @IBOutlet weak var starImage: UIImageView!
+    
     var itemUrl: String?
     
     override func awakeFromNib() {
