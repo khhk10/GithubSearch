@@ -13,6 +13,9 @@ class SearchItemTableViewController: UITableViewController, UISearchBarDelegate{
     // let appid = "dj00aiZpPWdoQW91eGRFY1RYZCZzPWNvbnN1bWVyc2VjcmV0Jng9NmQ-"
     // let entryUrl: String = "https://shopping.yahooapis.jp/ShoppingWebService/V1/json/itemSearch"
     
+    // UISearchBar
+    @IBOutlet weak var searchBar: UISearchBar!
+    
     // 検索URL
     var entryUrl: String = "https://api.github.com/search/repositories"
     
@@ -50,6 +53,12 @@ class SearchItemTableViewController: UITableViewController, UISearchBarDelegate{
             entryUrl = "https://api.github.com/search/repositories"
             search = SearchMode.repository
         }
+        // テーブルの描画処理を更新
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+        // 検索ワードを削除
+        searchBar.text = nil
     }
     
     // UISearchBarDelegateの実装

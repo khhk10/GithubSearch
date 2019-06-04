@@ -124,6 +124,9 @@
                             </connections>
                         </segmentedControl>
                     </navigationItem>
+                    <connections>
+                        <outlet property="searchBar" destination="ODb-hx-pbD" id="pga-0p-aLT"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wmP-Qt-4pH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
