@@ -1,12 +1,6 @@
 class RepositorySearchResult: Codable {
     var items: [RepoItem] = [RepoItem]()
     
-    // デコード処理
-    /*
-    required init(from decoder: Decoder) throws {
-    }
-    */
-    
     // エンコード処理
     func encode(to encoder: Encoder) throws {
     }
