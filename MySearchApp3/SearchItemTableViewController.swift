@@ -8,6 +8,7 @@ class SearchItemTableViewController: UITableViewController, UISearchBarDelegate{
     // ユーザの検索結果
     var userDataArray = [UserItem]()
     
+    // キャッシュ
     var imageCache = NSCache<AnyObject, UIImage>()
     
     // let appid = "dj00aiZpPWdoQW91eGRFY1RYZCZzPWNvbnN1bWVyc2VjcmV0Jng9NmQ-"
@@ -182,9 +183,6 @@ class SearchItemTableViewController: UITableViewController, UISearchBarDelegate{
                 // [itemData]を格納
                 // self.itemDataArray.append(contentsOf: decodedData.resultSet.firstObject.result.items)
                 
-                // 配列[RepoItem]を格納
-                //self.itemDataArray.append(contentsOf: decodedData.items)
-                
             } catch let error {
                 print("##error: \(error)")
             }
@@ -213,7 +211,7 @@ class SearchItemTableViewController: UITableViewController, UISearchBarDelegate{
         }
     }
     
-    // テーブルビューセル
+    // Table View Cell
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "itemCell", for: indexPath) as? ItemTableViewCell else {
@@ -305,7 +303,7 @@ class SearchItemTableViewController: UITableViewController, UISearchBarDelegate{
             // キャッシュに画像を登録
             self.imageCache.setObject(image, forKey: imageUrl as AnyObject)
             
-            // 画像はメインそスレッド上で設定する
+            // 画像はメインスレッド上で設定する
             DispatchQueue.main.async {
                 cell.itemImageView.image = image
             }
