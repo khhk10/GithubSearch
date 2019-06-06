@@ -55,17 +55,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		552F95E422A672BB00D1B247 /* News */ = {
+		551FB00122A9274800DB84F3 /* Account */ = {
 			isa = PBXGroup;
 			children = (
-				552F95D922A65B8300D1B247 /* NewsTableViewController.swift */,
-				55A5FF3422A6908200461D26 /* RecievedEventResult.swift */,
-				55A5FF3622A6959900461D26 /* NewsTableViewCell.swift */,
+				552F95DB22A6711300D1B247 /* AccountSetViewController.swift */,
 			);
-			name = News;
+			path = Account;
 			sourceTree = "<group>";
 		};
-		552F95E622A672FC00D1B247 /* Search */ = {
+		551FB00222A9275A00DB84F3 /* Search */ = {
 			isa = PBXGroup;
 			children = (
 				555602C7229A607B007AA50E /* ItemSearchResultSet.swift */,
@@ -75,15 +73,17 @@
 				55FD9296229A72B500BC0A59 /* SearchItemTableViewController.swift */,
 				55FD9298229D417C00BC0A59 /* WebViewController.swift */,
 			);
-			name = Search;
+			path = Search;
 			sourceTree = "<group>";
 		};
-		552F95E922A6740600D1B247 /* Account */ = {
+		551FB00322A9278800DB84F3 /* News */ = {
 			isa = PBXGroup;
 			children = (
-				552F95DB22A6711300D1B247 /* AccountSetViewController.swift */,
+				552F95D922A65B8300D1B247 /* NewsTableViewController.swift */,
+				55A5FF3422A6908200461D26 /* RecievedEventResult.swift */,
+				55A5FF3622A6959900461D26 /* NewsTableViewCell.swift */,
 			);
-			name = Account;
+			path = News;
 			sourceTree = "<group>";
 		};
 		555602A9229A5AAD007AA50E = {
@@ -108,9 +108,9 @@
 				552F95E722A6739E00D1B247 /* AppDelegate.swift */,
 				555602B9229A5AAD007AA50E /* Main.storyboard */,
 				55FD929C229D686300BC0A59 /* star.jpeg */,
-				552F95E922A6740600D1B247 /* Account */,
-				552F95E622A672FC00D1B247 /* Search */,
-				552F95E422A672BB00D1B247 /* News */,
+				551FB00222A9275A00DB84F3 /* Search */,
+				551FB00322A9278800DB84F3 /* News */,
+				551FB00122A9274800DB84F3 /* Account */,
 				555602BC229A5AAF007AA50E /* Assets.xcassets */,
 				555602BE229A5AAF007AA50E /* LaunchScreen.storyboard */,
 				555602C1229A5AAF007AA50E /* Info.plist */,
