@@ -89,7 +89,7 @@
 		555602A9229A5AAD007AA50E = {
 			isa = PBXGroup;
 			children = (
-				555602B4229A5AAD007AA50E /* MySearchApp3 */,
+				555602B4229A5AAD007AA50E /* GithubSearch */,
 				555602B3229A5AAD007AA50E /* Products */,
 			);
 			sourceTree = "<group>";
@@ -102,7 +102,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		555602B4229A5AAD007AA50E /* MySearchApp3 */ = {
+		555602B4229A5AAD007AA50E /* GithubSearch */ = {
 			isa = PBXGroup;
 			children = (
 				552F95E722A6739E00D1B247 /* AppDelegate.swift */,
@@ -115,7 +115,7 @@
 				555602BE229A5AAF007AA50E /* LaunchScreen.storyboard */,
 				555602C1229A5AAF007AA50E /* Info.plist */,
 			);
-			path = MySearchApp3;
+			path = GithubSearch;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -348,12 +348,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = AL4XSQ5LX8;
-				INFOPLIST_FILE = MySearchApp3/Info.plist;
+				INFOPLIST_FILE = GithubSearch/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = jp.koheiikeda.MySearchApp3;
+				PRODUCT_BUNDLE_IDENTIFIER = jp.koheiikeda.GithubSearch;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -366,12 +366,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = AL4XSQ5LX8;
-				INFOPLIST_FILE = MySearchApp3/Info.plist;
+				INFOPLIST_FILE = GithubSearch/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = jp.koheiikeda.MySearchApp3;
+				PRODUCT_BUNDLE_IDENTIFIER = jp.koheiikeda.GithubSearch;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
