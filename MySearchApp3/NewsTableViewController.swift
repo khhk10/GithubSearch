@@ -15,10 +15,30 @@ class NewsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // URL
         entryUrl += "/" + username + "/received_events"
+        
+        // UIRefreshControlオブジェクトを指定
+        tableView.refreshControl = UIRefreshControl()
+        
+        // セレクタを使ったメソッド呼び出し
+        let selector = #selector(handleRefresh(_:))
+        tableView.refreshControl?.addTarget(self, action: selector, for: .valueChanged)
         
         // リクエスト
         request(requestUrl: entryUrl)
+    }
+    
+    // リフレッシュ処理
+    @objc func handleRefresh(_ sender: UIRefreshControl) {
+        
+        // リクエスト
+        request(requestUrl: entryUrl)
+        
+        // refresh controlを終了
+        DispatchQueue.main.async {
+            sender.endRefreshing()
+        }
     }
     
     // リクエスト
@@ -52,6 +72,11 @@ class NewsTableViewController: UITableViewController {
             do {
                 // JSONデータをデコード
                 let decodedData = try JSONDecoder().decode([RecievedEventItem].self, from: data)
+                
+                // 一度配列の中身を空にする
+                if self.reciEventArray.count > 0 {
+                    self.reciEventArray.removeAll()
+                }
                 
                 // 配列[RecievedEventItem]を格納
                 self.reciEventArray.append(contentsOf: decodedData)
