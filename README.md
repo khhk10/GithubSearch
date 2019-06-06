@@ -1,4 +1,4 @@
 # GithubSearch
 Simple GitHub search app for iOS
 
-<img width="250" alt="githubRepoSearch_screen" src="https://user-images.githubusercontent.com/15978091/58488046-a89ca000-81a3-11e9-8155-a507960c8559.png">
+![GithubSearch_screen_700](https://user-images.githubusercontent.com/15978091/59025840-0611aa80-8890-11e9-9e29-c09975d1b103.jpg)
