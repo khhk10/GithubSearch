@@ -11,7 +11,7 @@ Simple GitHub search app for iOS using Github API
 search "Repositories" or "Users".
 
 #### News Tab
-see activities that a user recieves in a timeline.
+see activities that a user recieves in a timeline (event: starred, forked, created and etc).
 
 ## Environment
 - iOS 12.1
