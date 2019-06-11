@@ -13,6 +13,6 @@ earch "Repositories" or "Users".
 #### News Tab
 see activities that a user recieves in a timeline (event: starred, forked, created and etc).
 
-## Environment
+### Requirement
 - iOS 12.1
 - Xcode 10.1
