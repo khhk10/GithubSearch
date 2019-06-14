@@ -1,4 +1,3 @@
-
 // ユーザが受け取るイベント一件分
 class RecievedEventItem: Codable {
     var type: String?

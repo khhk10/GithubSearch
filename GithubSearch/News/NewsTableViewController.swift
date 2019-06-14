@@ -144,6 +144,9 @@ class NewsTableViewController: UITableViewController {
         cell.reciEventLabel.text = actor + "  " + eventStr
         cell.reposiNameLabel.text = eventItem.repository.name
         
+        // URL
+        cell.eventUrl = eventItem.repository.url
+        
         // 画像URL
         var imageUrl: String
         
@@ -243,6 +246,14 @@ class NewsTableViewController: UITableViewController {
         // 通信開始
         task.resume()
     }
-
-
+    
+    // 画面遷移前の処理
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let cell = sender as? NewsTableViewCell {
+            if let newsDetail = segue.destination as? NewsDetailViewController {
+                // WebViewで表示するURLを設定する
+                newsDetail.webUrl = cell.eventUrl
+            }
+        }
+    }
 }
